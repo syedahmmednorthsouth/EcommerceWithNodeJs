@@ -8,9 +8,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please add a name"],
         trim: true,
+        default: 'user'
     },
     uid: {
         type: String,
+        default: 0,
     },
     email: {
         type: String,
@@ -20,6 +22,7 @@ const UserSchema = new mongoose.Schema({
             "Please add a valid email",
         ],
         unique: true,
+
     },
     verify: {
         type: Boolean,
@@ -30,6 +33,7 @@ const UserSchema = new mongoose.Schema({
         minlength: [8, "Password should be 8 character long"],
         required: [true, "Please add a password"],
         select: false,
+
     },
     role: {
         type: String,
@@ -49,6 +53,8 @@ UserSchema.pre("remove", async function (next) {
 
     next();
 });
+
+
 
 UserSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {

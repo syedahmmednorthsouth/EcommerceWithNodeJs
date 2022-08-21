@@ -8,11 +8,22 @@ const connectDb = require("./config/db");
 
 const app = express();
 
-app.use(express.json());
 
 dotenv.config({ path: "./config/config.env" });
 
 connectDb();
+
+//routes
+const authRouter = require('./routes/auth');
+
+app.use(express.json());
+
+app.use(cors());
+
+app.use("/api/v1/auth", authRouter);
+
+
+
 
 
 
